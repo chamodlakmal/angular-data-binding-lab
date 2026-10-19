@@ -1,0 +1,195 @@
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Data Binding Lab home">
+    <span class="brand-mark">A</span>
+    <span>data binding <strong>lab</strong></span>
+  </a>
+  <span class="version">Angular 22</span>
+  <button class="reset-button" type="button" (click)="resetLab()">Reset examples</button>
+</header>
+
+<div class="page-shell" id="top">
+  <aside class="course-nav">
+    <p class="nav-label">COURSE CONTENT</p>
+    <nav aria-label="Data binding lessons">
+      <a href="#overview"><span>01</span>Binding overview</a>
+      <a href="#interpolation"><span>02</span>Interpolation</a>
+      <a href="#property"><span>03</span>Property binding</a>
+      <a href="#attribute"><span>04</span>Attribute binding</a>
+      <a href="#style"><span>05</span>Style binding</a>
+      <a href="#class"><span>06</span>Class binding</a>
+      <a href="#event"><span>07</span>Event binding</a>
+      <a href="#event-object"><span>08</span>$event and keys</a>
+      <a href="#template-variable"><span>09</span>Template variables</a>
+      <a href="#two-way"><span>10</span>Two-way binding</a>
+      <a href="#challenge"><span>11</span>Student challenge</a>
+    </nav>
+    <div class="teacher-tip">
+      <strong>Teaching rhythm</strong>
+      <p>Explain → predict → run → change → ask why.</p>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">FROM THE UPLOADED COURSE · INTERACTIVE EDITION</p>
+        <h1>Angular 22<br /><span>Data Binding</span></h1>
+        <p class="hero-copy">Learn how data moves between a TypeScript component and its HTML template. Every lesson below includes a live example, the syntax, and a teaching question.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#interpolation">Start lesson</a>
+          <span>9 concepts · hands-on examples</span>
+        </div>
+      </div>
+      <div class="binding-map" aria-label="Data binding direction diagram">
+        <div class="map-card"><small>TYPESCRIPT</small><strong>Component</strong><code>studentName</code></div>
+        <div class="map-arrows">
+          <div><span>→</span><small>one-way data</small></div>
+          <div><span>←</span><small>events</small></div>
+        </div>
+        <div class="map-card"><small>HTML</small><strong>Template</strong><code ngNonBindable>{{ name }}</code></div>
+        <p><strong>Two-way:</strong> both directions stay synchronized with <code>[(ngModel)]</code>.</p>
+      </div>
+    </section>
+
+    <section class="direction-grid" aria-label="Binding direction summary">
+      <article><span class="direction-icon">→</span><div><small>COMPONENT TO VIEW</small><h2>One-way data</h2><p>Interpolation and property, attribute, style, or class binding.</p></div></article>
+      <article><span class="direction-icon event">←</span><div><small>VIEW TO COMPONENT</small><h2>One-way events</h2><p>Clicks, typing, keyboard actions, focus, and other browser events.</p></div></article>
+      <article><span class="direction-icon both">⇄</span><div><small>BOTH DIRECTIONS</small><h2>Two-way data</h2><p>The component and form control update each other.</p></div></article>
+    </section>
+
+    <section class="lesson" id="interpolation">
+      <div class="lesson-heading"><span>02</span><div><p class="eyebrow">ONE-WAY · COMPONENT → VIEW</p><h2>Interpolation</h2><p>Displays component values as text using <code ngNonBindable>{{ expression }}</code>.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>app.ts + app.html</span><b ngNonBindable>{{ }}</b></div><pre><code ngNonBindable>studentName = 'Nimal';
+completedLessons = 3;
+totalLessons = 9;
+
+&lt;h3&gt;Hello &lbrace;&lbrace; studentName &rbrace;&rbrace;&lt;/h3&gt;
+&lt;p&gt;&lbrace;&lbrace; completedLessons &rbrace;&rbrace; / &lbrace;&lbrace; totalLessons &rbrace;&rbrace;&lt;/p&gt;
+&lt;p&gt;Remaining: &lbrace;&lbrace; totalLessons - completedLessons &rbrace;&rbrace;&lt;/p&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><h3>Hello {{ studentName }}</h3><p>You are learning {{ courseTitle }}.</p><div class="metric"><strong>{{ completedLessons }} / {{ totalLessons }}</strong><span>lessons completed</span></div><p>Remaining: {{ totalLessons - completedLessons }}</p></div>
+      </div>
+      <p class="teacher-question"><strong>Ask the student:</strong> If <code>completedLessons</code> becomes 5, which parts of the view will change?</p>
+    </section>
+
+    <section class="lesson" id="property">
+      <div class="lesson-heading"><span>03</span><div><p class="eyebrow">ONE-WAY · COMPONENT → VIEW</p><h2>Property binding</h2><p>Assigns a TypeScript expression to a DOM property using <code>[property]="expression"</code>.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Property binding</span><b>[ ]</b></div><pre><code ngNonBindable>logoUrl = 'favicon.ico';
+isSaveDisabled = false;
+
+&lt;img [src]="logoUrl" [alt]="logoDescription"&gt;
+&lt;button [disabled]="isSaveDisabled"&gt;Save&lt;/button&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><img class="angular-logo" [src]="logoUrl" [alt]="logoDescription" /><button class="demo-button" type="button" [disabled]="isSaveDisabled">Save student</button><button class="secondary-button" type="button" (click)="toggleDisabledState()">{{ isSaveDisabled ? 'Enable' : 'Disable' }} save button</button><p class="state-readout">disabled = <strong>{{ isSaveDisabled }}</strong></p></div>
+      </div>
+      <p class="teacher-question"><strong>Key point:</strong> <code>[disabled]="false"</code> passes a boolean. <code>disabled="false"</code> still places the HTML attribute on the button.</p>
+    </section>
+
+    <section class="lesson" id="attribute">
+      <div class="lesson-heading"><span>04</span><div><p class="eyebrow">ONE-WAY · COMPONENT → VIEW</p><h2>Attribute binding</h2><p>Sets attributes that do not map cleanly to element properties using <code>[attr.name]</code>.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Attribute binding</span><b>attr.</b></div><pre><code ngNonBindable>tableColumnCount = 2;
+
+&lt;th [attr.colspan]="tableColumnCount"&gt;Student&lt;/th&gt;
+&lt;button [attr.aria-label]="saveAriaLabel"&gt;Save&lt;/button&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><table><thead><tr><th [attr.colspan]="tableColumnCount">Student summary</th></tr></thead><tbody><tr><td>Name</td><td>{{ studentName }}</td></tr><tr><td>Course</td><td>Angular 22</td></tr></tbody></table><button class="demo-button" type="button" [attr.aria-label]="saveAriaLabel">Save</button><p class="state-readout">Inspect the button to find its dynamic <code>aria-label</code>.</p></div>
+      </div>
+    </section>
+
+    <section class="lesson" id="style">
+      <div class="lesson-heading"><span>05</span><div><p class="eyebrow">ONE-WAY · COMPONENT → VIEW</p><h2>Style binding</h2><p>Changes an inline style with <code>[style.property]</code>, including units such as <code>.px</code> and <code>.percent</code>.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Style binding</span><b>style.</b></div><pre><code ngNonBindable>headingColor = '#5b21b6';
+headingSize = 28;
+progressPercentage = 64;
+
+&lt;h3 [style.color]="headingColor"
+    [style.font-size.px]="headingSize"&gt;Progress&lt;/h3&gt;
+&lt;div [style.width.%]="progressPercentage"&gt;&lt;/div&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><h3 [style.color]="headingColor" [style.font-size.px]="headingSize">Course progress</h3><div class="progress"><span [style.width.%]="progressPercentage"></span></div><div class="control-row"><label>Color <input type="color" [(ngModel)]="headingColor" /></label><label>Size <input type="range" min="20" max="44" [(ngModel)]="headingSize" /></label><label>Progress <input type="range" min="0" max="100" [(ngModel)]="progressPercentage" /></label></div></div>
+      </div>
+    </section>
+
+    <section class="lesson" id="class">
+      <div class="lesson-heading"><span>06</span><div><p class="eyebrow">ONE-WAY · COMPONENT → VIEW</p><h2>Class binding</h2><p>Adds or removes a CSS class according to a boolean expression.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Class binding</span><b>class.</b></div><pre><code ngNonBindable>isActiveStudent = true;
+hasValidationError = false;
+
+&lt;div [class.active]="isActiveStudent"
+     [class.invalid]="hasValidationError"&gt;
+  Student status
+&lt;/div&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><div class="status-card" [class.active]="isActiveStudent" [class.invalid]="hasValidationError"><strong>{{ isActiveStudent ? 'Active student' : 'Inactive student' }}</strong><span>{{ hasValidationError ? 'Validation requires attention' : 'Details are valid' }}</span></div><div class="button-row"><button class="secondary-button" type="button" (click)="toggleStudentStatus()">Toggle active</button><button class="secondary-button" type="button" (click)="toggleValidationError()">Toggle error</button></div></div>
+      </div>
+    </section>
+
+    <section class="lesson" id="event">
+      <div class="lesson-heading"><span>07</span><div><p class="eyebrow">ONE-WAY · VIEW → COMPONENT</p><h2>Event binding</h2><p>Listens to browser events and runs a component expression using <code>(event)="expression"</code>.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Event binding</span><b>( )</b></div><pre><code ngNonBindable>clickCount = 0;
+
+increaseCount(): void &lbrace;
+  this.clickCount++;
+&rbrace;
+
+&lt;button (click)="increaseCount()"&gt;Click&lt;/button&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><button class="demo-button large" type="button" (click)="increaseCount()">Run click event</button><div class="metric"><strong>{{ clickCount }}</strong><span>click events handled</span></div><p class="event-message" role="status">{{ eventMessage }}</p></div>
+      </div>
+    </section>
+
+    <section class="lesson" id="event-object">
+      <div class="lesson-heading"><span>08</span><div><p class="eyebrow">EVENT DETAILS</p><h2><code>$event</code> and key modifiers</h2><p><code>$event</code> gives the method the browser event object. Key modifiers filter keyboard events in the template.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>$event + Enter</span><b>$event</b></div><pre><code ngNonBindable>updateFromEvent(event: Event): void &lbrace;
+  const input = event.target as HTMLInputElement;
+  this.eventInputValue = input.value;
+&rbrace;
+
+&lt;input (input)="updateFromEvent($event)"
+       (keyup.enter)="submitWithEnter()"&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><label class="field">Type, then press Enter<input type="text" placeholder="Try Angular" [value]="eventInputValue" (input)="updateFromEvent($event)" (keyup.enter)="submitWithEnter()" /></label><p>Value read from <code>$event</code>: <strong>{{ eventInputValue || '—' }}</strong></p><p class="event-message" role="status">{{ eventMessage }}</p></div>
+      </div>
+      <p class="teacher-question"><strong>Try next:</strong> Replace <code>keyup.enter</code> with <code>keyup.escape</code>, or test a combination such as <code>keydown.shift.enter</code>.</p>
+    </section>
+
+    <section class="lesson" id="template-variable">
+      <div class="lesson-heading"><span>09</span><div><p class="eyebrow">TEMPLATE REFERENCE</p><h2>Template variables</h2><p>A variable such as <code>#courseInput</code> gives the template a reference to an HTML element.</p></div></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Template variable</span><b>#</b></div><pre><code ngNonBindable>&lt;input #courseInput type="text"&gt;
+
+&lt;button (click)="readTemplateVariable(courseInput.value)"&gt;
+  Read value
+&lt;/button&gt;
+
+&lt;button (click)="courseInput.focus()"&gt;Focus&lt;/button&gt;</code></pre></div>
+        <div class="demo-panel"><span class="live-label">LIVE RESULT</span><label class="field">Course name<input #courseInput type="text" placeholder="TypeScript" /></label><div class="button-row"><button class="demo-button" type="button" (click)="readTemplateVariable(courseInput.value)">Read value</button><button class="secondary-button" type="button" (click)="courseInput.focus()">Focus input</button></div><p class="event-message">{{ eventMessage }}</p></div>
+      </div>
+    </section>
+
+    <section class="lesson featured" id="two-way">
+      <div class="lesson-heading"><span>10</span><div><p class="eyebrow">COMPONENT ⇄ VIEW</p><h2>Two-way binding</h2><p>Keeps component state and a form control synchronized using <code>[(ngModel)]</code>. A standalone component must import <code>FormsModule</code>.</p></div></div>
+      <div class="two-way-explainer"><code>[(ngModel)]="formName"</code><span>=</span><code>[ngModel]="formName"</code><span>+</span><code>(ngModelChange)="formName = $event"</code></div>
+      <div class="lesson-grid">
+        <div class="code-panel"><div class="panel-bar"><span>Two-way binding</span><b>[()]</b></div><pre><code ngNonBindable>import &lbrace; FormsModule &rbrace; from '@angular/forms';
+
+&#64;Component(&lbrace; imports: [FormsModule] &rbrace;)
+export class App &lbrace;
+  formName = 'Nimal Perera';
+&rbrace;
+
+&lt;input [(ngModel)]="formName"&gt;
+&lt;p&gt;&lbrace;&lbrace; formName &rbrace;&rbrace;&lt;/p&gt;</code></pre></div>
+        <div class="demo-panel form-demo"><span class="live-label">LIVE RESULT</span><label class="field">Student name<input [(ngModel)]="formName" /></label><label class="field">Email<input type="email" [(ngModel)]="email" /></label><label class="field">Course<select [(ngModel)]="selectedCourse"><option>Angular</option><option>TypeScript</option><option>JavaScript</option></select></label><label class="check-field"><input type="checkbox" [(ngModel)]="acceptedTerms" /> Accept course terms</label><div class="live-preview"><small>LIVE COMPONENT STATE</small><strong>{{ formName }}</strong><span>{{ email }}</span><span>{{ selectedCourse }} · terms: {{ acceptedTerms }}</span></div></div>
+      </div>
+      <p class="teacher-question"><strong>Ask the student:</strong> What changes first when the user types—the input or the component property? Explain how both remain synchronized.</p>
+    </section>
+
+    <section class="challenge" id="challenge">
+      <div><p class="eyebrow">FINAL PRACTICE</p><h2>Build a student registration card</h2><p>Let the student combine every binding technique in one small feature.</p></div>
+      <ol><li>Display a title and lesson count with interpolation.</li><li>Disable Submit until the form is valid with property binding.</li><li>Add an accessible label with attribute binding.</li><li>Show progress using style binding.</li><li>Add valid and invalid states using class binding.</li><li>Handle Submit and keyboard actions using event binding.</li><li>Read one element with a template variable.</li><li>Synchronize the form using <code>[(ngModel)]</code>.</li></ol>
+    </section>
+
+    <footer><strong>Angular 22 Data Binding Lab</strong><span>Teach each example by predicting, running, changing, and explaining.</span></footer>
+  </main>
+</div>
